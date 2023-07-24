@@ -1,10 +1,10 @@
-# System Components: Overview (Local Version)
+# System Components: Overview
 
 In this section, basic system components will be introduced to give users a first impression of how the system works. 
 
 ## Workers
 
-Workers are stateful computational components that follows a pre-defined workflow. In distributed version of the system, upon system starts, workers will be launched as RPC servers that receive requests from a centralized controller. The centralized controller calls remote methods in workers to control their life cycle. In local version, this procedure is simplified into a python `multiprocessing` implementation. `apps/local.py` launches all workers and manages them as `multiprocessing.Process`.
+Workers are stateful computational components that follows a pre-defined workflow. In distributed version of the system, upon system starts, workers will be launched as RPC servers that receive requests from a centralized controller. The centralized controller calls remote methods in workers to control their life cycle. To launch a local experiment, `apps/main.py` launches all workers and manages them as `multiprocessing.Process`.
 
 In our original system, there are 3 types of workers: [Actor Workers](02_actor_worker.md), [Policy Workers](03_policy_worker.md) and [Trainer Workers](04_trainer_worker.md), corresponding to simulation, inference and training tasks in RL. They are connected to each others by data streams (Inference Stream and Sample Stream). The relationship between these components is shown as follows: 
 
@@ -17,7 +17,7 @@ Users are allowed to implement their own workers to support self-designed RL alg
 ## Data Streams
 <!-- After implementing shared memory data streams, maybe independent data stream doc to introduce detail -->
 
-Data streams are components that deals with communication between workers. In our original RL system design, there are two types of data streams: Inference Stream, which exchanges observations and actions between actor workers and policy workers; Sample Stream, which sends training samples from actor workers to trainer workers. In distributed version, data streams are implemented in ZMQ (https://zeromq.org/), while in local version, data streams are implemented with `multiprocessing.Queue`. 
+Data streams are components that deals with communication between workers. In our original RL system design, there are two types of data streams: Inference Stream, which exchanges observations and actions between actor workers and policy workers; Sample Stream, which sends training samples from actor workers to trainer workers. In distributed version, data streams are implemented in ZMQ (https://zeromq.org/), while in local version, data streams are implemented in shared memory. 
 
 ### Inference Stream 
 
@@ -30,8 +30,6 @@ Inference streams gather/batch inference requests from actor workers, send them 
 - Distributed Inference stream is implemented in ZMQ (https://zeromq.org/).
   - Requests: PUSH-PULL pattern sockets.
   - Responses: PUB-SUB pattern sockets.
-- Local Inference stream is implemented with `multiprocessing.Queue`.
-  - Two queues, one for requests and one for responses.
 
 See [Inference Stream](07_inference_stream.md) for detailed APIs and usage.
 
@@ -48,8 +46,6 @@ Sample streams receive and batch training samples from actor workers and send th
 
 - Distributed Sample Stream is implemented in ZMQ.
   - PUSH-PULL pattern sockets.
-- Local Inference Stream is implemented with `multiprocessing.Queue`.
-  - One queue for training sample.
 
 See [Sample Stream](08_sample_stream.md) for detailed APIs and usage.
 
