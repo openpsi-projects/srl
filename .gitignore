@@ -1,0 +1,10 @@
+.idea
+bazel-*
+*__pycache__*
+_experiments
+.vscode
+wandb
+*.pyc
+*.log
+*.sh
+*.egg-info
