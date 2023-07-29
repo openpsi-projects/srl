@@ -1,6 +1,6 @@
-# SRL: **R**ea**L**ly **S**calable **RL**
+# SRL (**R**ea**L**ly **S**calable **RL**): Scaling Distributed Reinforcement Learning to Over Ten Thousand Cores
 
-**SRL** is an _efficient_, _scalable_ and _general_ distributed **Reinforcement Learning** system. **SRL** supports running several state-of-the-art RL algorithms on some common environments with one simple configuration file, and also exposes general APIs for users to develop their self-defined environments, policies and algorithms. **SRL** even allows users to implement new system components to support their algorithm designs, if current system architecture is not sufficient. 
+**SRL** is an _efficient_, _scalable_ and _extensible_ distributed **Reinforcement Learning** system. **SRL** supports running several state-of-the-art RL algorithms on some common environments with one simple configuration file, and also exposes general APIs for users to develop their self-defined environments, policies and algorithms. **SRL** even allows users to implement new system components to support their algorithm designs, if current system architecture is not sufficient. 
 
 Currently, our scheduler with `slurm` is not released. We are planning to implement a `ray` version launcher for users to easily deploy SRL on a large scale!   
 
@@ -40,3 +40,6 @@ For more user guides:
 For more information about **SRL**:
 - [System Components](docs/system_components/00_system_overview.md)
 
+## Full paper
+
+Full paper: **SRL: Scaling Distributed Reinforcement Learning to Over Ten thousand cores** available in arxiv! Link: **[https://arxiv.org/abs/2306.16688](https://arxiv.org/abs/2306.16688)**
